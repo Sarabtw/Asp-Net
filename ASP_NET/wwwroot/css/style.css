@@ -1,0 +1,86 @@
+.custom-footer {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(90deg, #343a40 60%, #6c757d 100%);
+    border-top: 3px solid #0d6efd;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-footer .heart {
+    color: #e25555;
+    font-size: 1.2em;
+    vertical-align: middle;
+}
+
+.custom-footer .container {
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.custom-footer h5 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
+.custom-footer p {
+    margin-bottom: 0.5rem;
+    color: #d1d1d1;
+}
+
+.custom-footer a {
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.custom-footer a:hover {
+    text-decoration: underline;
+}
+
+.custom-footer .social-icons {
+    margin-top: 1rem;
+}
+
+.custom-footer .social-icons a {
+    margin: 0 0.5rem;
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+.custom-footer .social-icons a:hover {
+    color: #0d6efd;
+}
+
+.custom-footer .copyright {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #d1d1d1;
+}
+
+.custom-navbar {
+    background: linear-gradient(90deg, #0d6efd 60%, #6610f2 100%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.custom-navbar .navbar-brand {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.custom-navbar .nav-link {
+    color: #fff !important;
+    transition: color 0.2s;
+}
+
+.custom-navbar .nav-link.active,
+.custom-navbar .nav-link:hover {
+    color: #ffe066 !important;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1030;
+}

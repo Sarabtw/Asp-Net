@@ -1,0 +1,2 @@
+CREATE DATABASE TarefasDb;
+USE TarefasDb;

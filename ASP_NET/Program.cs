@@ -1,18 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using TarefasApiNet8.Data;
 using TarefasApiNet8.Models;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure; // Adicione este using se usar Pomelo
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
-    )
-);
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString);
 
 var app = builder.Build();
+
+app.UseDefaultFiles(); // Adiciona esta linha
+app.UseStaticFiles();  // E esta linha
 
 app.MapGet("/tarefas", async (AppDbContext db) =>
     await db.Tarefas.ToListAsync());

@@ -10,6 +10,6 @@ namespace TarefasApiNet8.Data
         {
         }
 
-        public DbSet<Tarefa> Tarefas => Set<Tarefa>();
+        public DbSet<Tarefa> Tarefas { get; set; } = null!;
     }
 }

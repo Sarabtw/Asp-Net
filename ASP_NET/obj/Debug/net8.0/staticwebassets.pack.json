@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documents\\Sara\\Asp-Net\\ASP_NET\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documents\\Sara\\Asp-Net\\ASP_NET\\wwwroot\\img\\images(1).jpg",
+      "PackagePath": "staticwebassets\\img\\images(1).jpg"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documents\\Sara\\Asp-Net\\ASP_NET\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documents\\Sara\\Asp-Net\\ASP_NET\\wwwroot\\sobre.html",
+      "PackagePath": "staticwebassets\\sobre.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ASP_NET.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ASP_NET.props",
+      "PackagePath": "build\\ASP_NET.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ASP_NET.props",
+      "PackagePath": "buildMultiTargeting\\ASP_NET.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ASP_NET.props",
+      "PackagePath": "buildTransitive\\ASP_NET.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
