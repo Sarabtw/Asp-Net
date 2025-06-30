@@ -86,7 +86,14 @@
         let tarefas = [];
         let idEditando = null;
 
-        // Função para renderizar a lista
+        // Buscar tarefas do backend
+        async function carregarTarefas() {
+            const resp = await fetch('/tarefas');
+            tarefas = await resp.json();
+            renderizarTarefas();
+        }
+
+        // Renderizar tarefas na tela
         function renderizarTarefas() {
             const lista = document.getElementById('listaTarefas');
             lista.innerHTML = '';
@@ -97,61 +104,55 @@
             <span>${tarefa.titulo}</span>
             <div>
                 <button class="btn btn-sm btn-warning me-2" onclick="abrirModalEditar(${idx})">Editar</button>
-                <button class="btn btn-sm btn-danger" onclick="apagarTarefa(${idx})">Apagar</button>
+                <button class="btn btn-sm btn-danger" onclick="apagarTarefa(${tarefa.id})">Apagar</button>
             </div>
         `;
                 lista.appendChild(li);
             });
         }
 
-        // Função para salvar tarefas no localStorage
-        function salvarTarefas() {
-            localStorage.setItem('tarefas', JSON.stringify(tarefas));
-        }
-
-        // Função para carregar tarefas do localStorage
-        function carregarTarefas() {
-            const tarefasSalvas = localStorage.getItem('tarefas');
-            tarefas = tarefasSalvas ? JSON.parse(tarefasSalvas) : [];
-        }
-
         // Adicionar tarefa
-        document.getElementById('formTarefa').addEventListener('submit', function (e) {
+        document.getElementById('formTarefa').addEventListener('submit', async function (e) {
             e.preventDefault();
             const input = document.getElementById('inputTarefa');
-            tarefas.push({ titulo: input.value });
+            await fetch('/tarefas', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ titulo: input.value, concluida: false })
+            });
             input.value = '';
-            salvarTarefas();
-            renderizarTarefas();
+            await carregarTarefas();
         });
 
         // Apagar tarefa
-        function apagarTarefa(idx) {
-            tarefas.splice(idx, 1);
-            salvarTarefas();
-            renderizarTarefas();
+        async function apagarTarefa(id) {
+            await fetch(`/tarefas/${id}`, { method: 'DELETE' });
+            await carregarTarefas();
         }
 
         // Abrir modal de edição
         function abrirModalEditar(idx) {
-            idEditando = idx;
+            idEditando = tarefas[idx].id;
             document.getElementById('inputEditar').value = tarefas[idx].titulo;
             const modal = new bootstrap.Modal(document.getElementById('modalEditar'));
             modal.show();
         }
 
         // Salvar edição
-        document.getElementById('formEditar').addEventListener('submit', function (e) {
+        document.getElementById('formEditar').addEventListener('submit', async function (e) {
             e.preventDefault();
-            tarefas[idEditando].titulo = document.getElementById('inputEditar').value;
-            salvarTarefas();
-            renderizarTarefas();
+            const novoTitulo = document.getElementById('inputEditar').value;
+            await fetch(`/tarefas/${idEditando}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ titulo: novoTitulo, concluida: false })
+            });
+            await carregarTarefas();
             bootstrap.Modal.getInstance(document.getElementById('modalEditar')).hide();
         });
 
-        // Ao iniciar a página, carregue as tarefas salvas:
+        // Ao iniciar a página, carregue as tarefas do backend:
         carregarTarefas();
-        renderizarTarefas();
     </script>
 </body>
 
