@@ -101,12 +101,19 @@
                 const li = document.createElement('li');
                 li.className = 'list-group-item d-flex justify-content-between align-items-center';
                 li.innerHTML = `
-            <span>${tarefa.titulo}</span>
-            <div>
-                <button class="btn btn-sm btn-warning me-2" onclick="abrirModalEditar(${idx})">Editar</button>
-                <button class="btn btn-sm btn-danger" onclick="apagarTarefa(${tarefa.id})">Apagar</button>
-            </div>
-        `;
+                <span${tarefa.concluida ? ' style="text-decoration: line-through;"' : ''}>${tarefa.titulo}</span>
+                <div>
+                    <button class="btn btn-sm btn-success me-2" title="Concluir" onclick="concluirTarefa(${tarefa.id}, ${!tarefa.concluida})">
+                        <i class="bi bi-check2-circle"></i>
+                    </button>
+                    <button class="btn btn-sm btn-warning me-2" title="Editar" onclick="abrirModalEditar(${idx})">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" title="Apagar" onclick="apagarTarefa(${tarefa.id})">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            `;
                 lista.appendChild(li);
             });
         }
@@ -130,6 +137,18 @@
             await carregarTarefas();
         }
 
+        // Concluir tarefa
+        async function concluirTarefa(id, concluida) {
+            const tarefa = tarefas.find(t => t.id === id);
+            if (!tarefa) return;
+            await fetch(`/tarefas/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ titulo: tarefa.titulo, concluida: concluida })
+            });
+            await carregarTarefas();
+        }
+
         // Abrir modal de edição
         function abrirModalEditar(idx) {
             idEditando = tarefas[idx].id;
@@ -142,10 +161,11 @@
         document.getElementById('formEditar').addEventListener('submit', async function (e) {
             e.preventDefault();
             const novoTitulo = document.getElementById('inputEditar').value;
+            const tarefa = tarefas.find(t => t.id === idEditando);
             await fetch(`/tarefas/${idEditando}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ titulo: novoTitulo, concluida: false })
+                body: JSON.stringify({ titulo: novoTitulo, concluida: tarefa.concluida })
             });
             await carregarTarefas();
             bootstrap.Modal.getInstance(document.getElementById('modalEditar')).hide();
